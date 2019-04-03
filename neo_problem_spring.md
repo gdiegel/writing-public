@@ -9,7 +9,7 @@ The excellent [neo-problem][1] library implements the [Problem Details for HTTP 
 Neo-problem offers different ways of generating error responses on the server side: Returning a JAX-RS response, using the `net.oneandone.neo.problem.AbstractExceptionToProblemMapper` to map any exception to a problem response and throwing generic `net.oneandone.neo.problem.ProblemException`.
 Because we are using spring-web components to configure our service in this example, we can't use JAX-RS `javax.ws.rs.core.Response` objects or the `AbstractExceptionToProblemMapper` provided by neo-problem. Instead, we will use the approach of throwing `ProblemException`s which are specific to our domain.
 
-Independent of the mechanism you probably want to create your own `net.oneandone.neo.problem.ProblemType` enum as outlined in the neo-problem [usage guide][5]:
+Independent of the mechanism you probably want to create your own `net.oneandone.neo.problem.ProblemType` enum as outlined in the neo-problem usage guide:
 
 ```java
 public enum MyProblemType implements ProblemType {
@@ -98,7 +98,7 @@ X-Application-Context: my-service:local:8080
 
 ## Handling spring-security exceptions
 
-Exceptions thrown by spring-security are either of type `org.springframework.security.core.AuthenticationException` or `org.springframework.security.access.AccessDeniedException` and are thrown in spring-security's servlet [filter chain][6]. Because of that, they can't be caught with a handler like we've used in the previous paragraph, which applies to a servlet environment.
+Exceptions thrown by spring-security are either of type `org.springframework.security.core.AuthenticationException` or `org.springframework.security.access.AccessDeniedException` and are thrown in spring-security's servlet [filter chain][5]. Because of that, they can't be caught with a handler like we've used in the previous paragraph, which applies to a servlet environment.
 
 `org.springframework.security.web.access.ExceptionTranslationFilter` is responsible for handling any AuthenticationException spring-security being thrown. This filter will call an appropriate `org.springframework.security.web.AuthenticationEntryPoint` to handle the failed authentication attempt and present the caller with an appropriate response. Handling `AuthenticationException` may consequently be achieved by configuring our own `AuthenticationEntryPoint` and adding it to the spring-security configuration.
 
@@ -165,5 +165,4 @@ static class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 [2]: https://www.rfc-editor.org/rfc/rfc7807.txt "rfc7807"
 [3]: http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications.html#boot-features-jersey "JAX-RS and Jersey"
 [4]: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-error-handling "Spring Boot error handling"
-[5]: https://git.mamdev.server.lan/mam-java-common/neo/blob/master/neo-problem/README.md "neo-problem Usage"
-[6]: http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#security-filter-chain "security-filter-chain"
+[5]: http://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#security-filter-chain "security-filter-chain"

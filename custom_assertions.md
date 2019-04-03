@@ -24,7 +24,7 @@ assertThat(student).as("Should be enrolled in Electrical Engineering").isEnrolle
 
 Fortunately, AssertJ allows you to create those custom assertion classes for your domain model.
 
-Consider the following simple [example][3] class (Please find links to all code examples in the References section):
+Consider the following simple example class:
 
 ```java
 public final class Student {
@@ -104,7 +104,7 @@ org.junit.ComparisonFailure: [Program must be equal to [COMPUTER_SCIENCE]: This 
 
 ## Advanced usage
 
-Placing the entry method directly in your domain class allows the creation of a fluent and expressive testing DSL like [the following][4]:
+Placing the entry method directly in your domain class allows the creation of a fluent and expressive testing DSL like the following:
 
 ```java
 given(PGP_SERVICE.accounts().$("PW-fBpQR7FGQEal4L356oy2rA").pgp().owned().publickeys().latest())
@@ -150,17 +150,10 @@ public class PGPPublicKeyAssert extends AbstractAssert<PGPPublicKeyAssert, PGPPu
 ...
 ```
 
-Please let me know if you have any questions about my code examples or test projects.
-
 ## References
 
 1. http://joel-costigliola.github.io/assertj/index.html
-2. http://xunitpatterns.com/XUnit%20Basics.html
-3. https://git.mamdev.server.lan/qa/student-example
-4. https://git.mamdev.server.lan/qa/pgp-it
+2. http://xunitpatterns.com/XUnit%20Basics.htm
 
 [1]: http://joel-costigliola.github.io/assertj/index.html
 [2]: http://xunitpatterns.com/XUnit%20Basics.html
-[3]: https://git.mamdev.server.lan/qa/student-example
-[4]: https://git.mamdev.server.lan/qa/pgp-it
-
