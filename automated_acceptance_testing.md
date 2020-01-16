@@ -21,6 +21,8 @@ Acceptance tests are created from acceptance criteria. These criteria MUST be de
 Acceptance tests should be owned by everyone because they provide value for everyone, they are a collaborative effort. They should be familiar to each person in an agile development team and everyone should know their scope. Everyone shares responsibility for these tests and fixing them should always get the appropriate priority.
 ### Propagation
 An artifact should not be deployed to production without first having passed the entire acceptance test stage by debing deployed to the first environment and propagating through all available stages towards production. It should be easier to fix the tests and pass the acceptance test stage than to circumvent the stage entirely.
+### Atomicity
+Acceptance tests should be atomic in that they are self-contained and can (and should!) run independently from each other. There must not be a given order to run the tests in. In addition to that, they should be able to run in parallel without creating race conditions. This means that ideally each test uses unique test data over the dimensions time and space. This implies ephemeral test data which is dynamically created and destroyed after the test suite has finished running.
 ### Information
 Acceptance tests should provide fast and reliable feedback whenever an error occurs and should also provide the necessary information to identify the source of the error as a quickly as possible.
 ### Flakiness
