@@ -1,10 +1,10 @@
 # Automated acceptance testing
-> The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, and OPTION AL in this document are to be interpreted as described in [RFC 2119][1].
+> The key words MUST, MUST NOT, REQUIRED, SHALL, SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL in this document are to be interpreted as described in [RFC 2119][1].
 
 ## Introduction
 An application deployed in any environment requires extensive functional testing before propagation into the next stage. Functional testing is conducted to evaluate the compliance of a system or component with specified functional requirements, it is not concerned with application internals.
 
-Once your software has passed a set of unit and integration tests in the commit stage, a release candidate is built and deployed to an artifact store. This is usulallyt the trigger for the deployment pipeline ti kick off and deploy the artifact into an environment where it will have to pass a second stage of tests, the acceptance test stage:
+Once your software has passed a set of unit and integration tests in the commit stage, a release candidate is built and deployed to an artifact store. This is usually the trigger for the deployment pipeline to run and deploy the artifact into an environment where it will have to pass a second stage of tests, the acceptance test stage:
 
 ![Tradeoffs in a development pipeline](images/tradeoffs_pipeline.png)
 
@@ -26,10 +26,10 @@ Acceptance tests SHOULD be owned by everyone because they provide value for ever
 An artifact SHOULD not be deployed to production without first having passed the entire acceptance test stage by being deployed to the first environment and propagating through all available stages towards production. It SHOULD be easier to fix the tests and pass the acceptance test stage than to circumvent the stage entirely.
 
 ## Atomicity
-Acceptance tests SHOULD be atomic in that they are self-contained and SHOULD run independently from each other. There must not be a given order to run the tests in. In addition to that, they should be able to run in parallel without creating race conditions. This means that ideally each test uses unique test data over the dimensions time and space. This implies ephemeral test data which is dynamically created and destroyed after the test suite has finished running.
+Acceptance tests SHOULD be atomic in that they are self-contained and SHOULD run independently from each other. There MUST not be a given order to run the tests in. In addition to that, they SHOULD be able to run in parallel without creating or failing because of race conditions. This means that ideally each test uses unique test data over the dimensions time and space, requiring ephemeral test data which is dynamically created and destroyed after the test suite has finished.
 
 ## Information and value
-The duration of the acceptance test suite SHOULD be kept reasonably short to provide fast feedback about the system under test. Use of parallelization whenever possible is strongly advised. One requirement for maximum parallelization is atomicity of tests, of course. Acceptance tests SHOULD provide fast and reliable feedback whenever an error occurs and SHOULD also provide the necessary information to identify the source of the error as a quickly as possible. Flaky tests (Toggling, flipping or otherwise unreliable tests) provide no value to an agile development team. Even worse, they decrease confidence in the acceptance test suite and SHOULD be eliminated promptly. Use retry mechanics in your tests if possible! If a test is still flaky, throw it into the the trash. Acceptance tests SHOULD always be kept green. Run them at least nightly and fix any failures immediately.
+The duration of the acceptance test suite SHOULD be kept reasonably short to provide fast feedback about the system under test. Use of parallelization whenever possible is strongly advised. One requirement for maximum parallelization is atomicity of tests, of course. Acceptance tests SHOULD provide fast and reliable feedback whenever an error occurs and SHOULD also provide the necessary information to identify the source of the error as a quickly as possible. Flaky tests (Toggling, flipping or otherwise unreliable tests) provide no value to an agile development team. Even worse, they decrease confidence in the acceptance test suite and MUST be eliminated promptly. Use retry mechanics in your tests if possible! If a test is still flaky, throw it into the trash. Acceptance tests SHOULD always be kept green. Run them at least nightly and fix any failures immediately.
 
 [1]: https://tools.ietf.org/html/rfc2119
 [2]: http://www.exampler.com/old-blog/2003/08/21.1.html#agile-testing-project-1
