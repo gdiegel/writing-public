@@ -4,17 +4,25 @@
 ## Introduction
 An application deployed in any environment requires extensive functional testing before propagation into the next stage. Functional testing is conducted to evaluate the compliance of a system or component with specified functional requirements, it is not concerned with application internals.
 
-Once your software has passed a set of unit and integration tests in the commit stage, a release candidate is built and deployed to an artifact store. This is usually the trigger for the deployment pipeline to run and deploy the artifact into an environment where it will have to pass a second stage of tests, the acceptance test stage:
-
-![Tradeoffs in a development pipeline](images/tradeoffs_pipeline.png)
-
-As the artifact moves from the left to the right towards production it is deployed into more environments which increasingly resemble the final production environment. The feedback cycles are getting longer while at the same time the confidence in the build's production readiness increases. Acceptance tests will assess whether an artifact meets functional requirements and is acceptable for deployment to production. Definition of acceptance testing by [ISTQB][2]:
+ Acceptance tests will assess whether an artifact meets functional requirements and is acceptable for deployment to production. Definition of acceptance testing by [ISTQB][2]:
 
 > Acceptance testing: Formal testing with respect to user needs, requirements, and business processes conducted to determine whether or not a system satisfies the acceptance criteria and to enable the user, customers or other authorized entity to determine whether or not to accept the system.
 
 Automated acceptance tests contextually belong in the upper-left quadrant of the famous agile testing quadrants, originally proposed by [Brian Marick][3]:
 
 ![Agile testing quadrants](images/agile_testing_quadrants.png)
+
+## Architecture of the logical development pipeline
+
+Beholding the logical development pipeline from the first commit to the version control system to the enventual deployment to production, we can separate the process into two stages. The first stage is the so-called commit stage. A commit that is pushed from a developer's machine to central repository triggers a technical pipeline on the CI system. This pipeline usually involves a first general validity check of the project, compiling the sources, running unit and integration tests and creating a deployable. Every deployable built by this pipeline is a possible release candidate and its internal validity has been established by the tools invoked by the build process. Uploading the release candiate to an artifact store marks the end of the commit stage:
+
+![Commit and deploy stage](images/commit_deploy_stage.png)
+
+A new version of the deployable will have to, on its way to production, pass through the second stage of our logical development pipeline, the deploy stage. In this stage, another technical pipeline deploys the artifact into a production-like environment for the first time. There, it will have to pass a second set of tests which we call acceptance tests. Further, in this stage we can run security, performance and manual tests. Each individual test stage in the deploy stage will filter out possibly bad release candidates. The test suites give us confidence in the production-readiness of the artifact, and if it successfully makes it through all the test stages and thus the deploy stage it may be deployed to production.
+
+The tradeoff between the commit stage and the deploy stage is that as the artifact moves from the left to the right towards production the feedback cycles are getting longer while at the same time the confidence in the build's production readiness increases:
+
+![Tradeoffs in a development pipeline](images/tradeoffs_pipeline.png)
 
 ## Acceptance criteria
 Acceptance tests are created from acceptance criteria. These criteria MUST be defined before development on a story starts and acceptance tests MUST be derived from these criteria as early as possible. It is invaluable to involve everyone on the team as much as possible in the process of designing acceptance criteria. Only if everyone is on the same level, so to speak, are you able to benefit from shared knowledge and minimize trouble down the line. It is a great way to create a common understanding of the value of the new feature and to nip potential misunderstandings in the bud. One SHOULD NOT make assumptions based only on one's own perception. Communication (as in every aspect of life) is key!
