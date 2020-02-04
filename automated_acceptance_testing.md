@@ -4,13 +4,15 @@
 ## Introduction
 An application deployed in any environment requires extensive functional testing before propagation into the next stage. Functional testing is conducted to evaluate the compliance of a system or component with specified functional requirements, it is not concerned with application internals.
 
- Acceptance tests will assess whether an artifact meets functional requirements and is acceptable for deployment to production. Definition of acceptance testing by [ISTQB][2]:
+ Acceptance tests will assess whether an artifact meets functional requirements and is acceptable for deployment to production. They are run after unit and integration tests against the deployed application. Definition of acceptance testing by [ISTQB][2]:
 
 > Acceptance testing: Formal testing with respect to user needs, requirements, and business processes conducted to determine whether or not a system satisfies the acceptance criteria and to enable the user, customers or other authorized entity to determine whether or not to accept the system.
 
 Automated acceptance tests contextually belong in the upper-left quadrant of the famous agile testing quadrants, originally proposed by [Brian Marick][3]:
 
 ![Agile testing quadrants](images/agile_testing_quadrants.png)
+
+While unit and integration tests are more concerned with the functionality of units of code in isolation and in concert with other units, acceptance tests take a high-level, outsider's view of the application and its features. In further contrast to more internal kinds of tests, functional acceptance tests are explicitely concerned with the value the application brings to its customers and are thus business-facing.
 
 ## Architecture of the logical development pipeline
 
