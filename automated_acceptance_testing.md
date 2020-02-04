@@ -14,11 +14,19 @@ Automated acceptance tests contextually belong in the upper-left quadrant of the
 
 While unit and integration tests are more concerned with the functionality of units of code in isolation and in concert with other units, acceptance tests take a high-level, outsider's view of the application and its features. In further contrast to more internal kinds of tests, functional acceptance tests are explicitely concerned with the value the application brings to its customers and are thus business-facing.
 
+## Value
+
+Functional acceptance tests verify that the application delivers the expected value for the “customer, they specify expected application behavior and their success indicates that the acceptance criteria of a story have been fulfilled. Tests of such nature also guard against regressions introduced by changes and make sure new changes don’t break existing functionality. Fully automated delivery pipelines including tests clear the way to continuous deployment. Since they generally use high-level and domain-specific language acceptance tests are an executable application specification. They are a source of truth for required application behavior and are invaluable to an agile development team.
+
 ## Architecture of the logical development pipeline
+
+### Commit stage
 
 Beholding the logical development pipeline from local code change to the eventual deployment to production, we can separate the process into two stages. The first stage is the so-called commit stage. A commit that is pushed from a developer's machine to the version control system triggers a technical pipeline on the CI system. This pipeline usually involves a first general validity check of the project, compiling the sources, running unit and integration tests and creating a deployable assembly. Every deployable built by this pipeline is a possible release candidate and its internal validity has been established by the tools invoked in the build process. Uploading the release candiate to an artifact store marks the end of the commit stage:
 
 ![Commit and deploy stage](images/commit_deploy_stage.png)
+
+### Deploy stage
 
 A new version of the deployable will have to, on its way to production, pass through the second stage of our logical development pipeline, the deploy stage. In this stage, another technical pipeline deploys the artifact into a production-like environment for the first time. There, it will have to pass a second set of tests which we call acceptance tests. Further, in this stage we can run security tests, performance tests and also manual tests. Each individual test stage in the deploy stage will filter out possibly bad release candidates. The test suites give us confidence in the production-readiness of our software, and if the artifact makes it successfully through all the test stages and thus the deploy stage it may be deployed to production.
 
@@ -38,8 +46,8 @@ An artifact SHOULD not be deployed to production without first having passed the
 ## Atomicity
 Acceptance tests MUST be atomic in that they are self-contained (meaning they provide their own configuration and do their own setup when run in isolation) and MUST be able run independently from each other. They MUST be free from side-effects and idempotent, i.e. running the same test multiple times MUST not change the outcome when compared to the first run. There MUST not be a pre-determined order to run the tests in, use setup methods for creating conditions for the tests to run under. In addition to that, they SHOULD be able to run in parallel without creating or failing because of race conditions. This means that ideally each test uses unique test data over the dimensions time and space, i.e. ephemeral test data that is dynamically created and destroyed after the test suite has finished.
 
-## Information and value
-The duration of the acceptance test suite SHOULD be kept reasonably short to provide fast feedback about the system under test. Use of parallelization whenever possible is strongly advised. One requirement for maximum parallelization is atomicity of tests, of course. Acceptance tests SHOULD provide fast and reliable feedback whenever an error occurs and SHOULD also provide the necessary information to identify the source of the error as a quickly as possible. Flaky tests (Toggling, flipping or otherwise unreliable tests) provide no value to an agile development team. Even worse, they decrease confidence in the acceptance test suite and MUST be eliminated promptly. Use retry mechanics in your tests if possible! If a test is still flaky, throw it into the trash. Acceptance tests SHOULD always be kept green. Run them at least nightly and fix any failures immediately.
+## Information content
+The duration of the acceptance test suite SHOULD be kept reasonably short to provide fast feedback about the system under test. Use of parallelization whenever possible is strongly advised. One requirement for maximum parallelization is atomicity of tests, of course. Acceptance tests SHOULD provide fast and reliable feedback whenever an error occurs and SHOULD also provide the necessary information to identify the source of the error as a quickly as possible. Flaky tests (Toggling, flipping or otherwise unreliable tests) provide no value to an agile development team. Worse even, they decrease confidence in the acceptance test suite and MUST be eliminated promptly. A solid test setup and retry mechanics are good ways to make a test suite more robust. If a single test continues to be flaky, throw it into the trash. Acceptance tests SHOULD always be kept green. Run them at least nightly and fix any failures immediately. Remember: A solid acceptance test suite gives confidence in your software and carries inherent value.
 
 [1]: https://tools.ietf.org/html/rfc2119
 [2]: https://www.istqb.org/
