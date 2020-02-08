@@ -4,7 +4,7 @@
 ## Introduction
 An application deployed in any environment requires extensive functional testing before propagation into the next stage. Functional testing is conducted to evaluate the compliance of a system or component with specified functional requirements, it is not concerned with application internals.
 
- Acceptance tests will assess whether an artifact meets functional requirements and is acceptable for deployment to production. They are run after unit and integration tests against the deployed application. Definition of acceptance testing by [ISTQB][2]:
+Acceptance tests will assess whether an artifact meets functional requirements and is acceptable for deployment to production. They are run after unit and integration tests against the deployed application. Definition of acceptance testing by [ISTQB][2]:
 
 > Acceptance testing: Formal testing with respect to user needs, requirements, and business processes conducted to determine whether or not a system satisfies the acceptance criteria and to enable the user, customers or other authorized entity to determine whether or not to accept the system.
 
@@ -16,7 +16,7 @@ While unit and integration tests are more concerned with the functionality of un
 
 ## Value
 
-Functional acceptance tests verify that the application delivers the expected value for the “customer, they specify expected application behavior and their success indicates that the acceptance criteria of a story have been fulfilled. Tests of such nature also guard against regressions introduced by changes and make sure new changes don’t break existing functionality. Fully automated delivery pipelines including tests clear the way to continuous deployment. Since they generally use high-level and domain-specific language acceptance tests are an executable application specification. They are a source of truth for required application behavior and are invaluable to an agile development team.
+Functional acceptance tests verify that the application delivers the expected value for the customer, they specify expected application behavior and their success indicates that the acceptance criteria of a story have been fulfilled. Tests of such nature also guard against regressions introduced by changes and make sure new changes don’t break existing functionality. Fully automated delivery pipelines including tests clear the way to continuous deployment. Since they generally use high-level and domain-specific language acceptance tests are an executable application specification. They are a source of truth for required application behavior and are invaluable to an agile development team.
 
 ## Architecture of the logical development pipeline
 
