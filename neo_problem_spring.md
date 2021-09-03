@@ -98,9 +98,9 @@ X-Application-Context: my-service:local:8080
 
 ## Handling spring-security exceptions
 
-Exceptions thrown by spring-security are either of type `org.springframework.security.core.AuthenticationException` or `org.springframework.security.access.AccessDeniedException` and are thrown in spring-security's servlet [filter chain][5]. Because of that, they can't be caught with a handler like we've used in the previous paragraph, which applies to a servlet environment.
+Exceptions thrown by spring-security are either of type `org.springframework.security.core.AuthenticationException` or `org.springframework.security.access.AccessDeniedException` and are thrown in spring-security's servlet [filter chain][5], which is why they can't be caught with a handler like we've used in the previous paragraph. These types of handlers apply to a servlet environment.
 
-`org.springframework.security.web.access.ExceptionTranslationFilter` is responsible for handling any AuthenticationException spring-security being thrown. This filter will call an appropriate `org.springframework.security.web.AuthenticationEntryPoint` to handle the failed authentication attempt and present the caller with an appropriate response. Handling `AuthenticationException` may consequently be achieved by configuring our own `AuthenticationEntryPoint` and adding it to the spring-security configuration.
+`org.springframework.security.web.access.ExceptionTranslationFilter` is responsible for handling any `AuthenticationException` being thrown by spring-security. This filter will call an appropriate `org.springframework.security.web.AuthenticationEntryPoint` to handle the failed authentication attempt and present the caller with an appropriate response. Handling `AuthenticationException` may consequently be achieved by configuring our own `AuthenticationEntryPoint` and adding it to the spring-security configuration.
 
 The following snippet show how such an entry point may be implemented:
 
@@ -145,7 +145,7 @@ final class ProblemHttpMessageConverter extends AbstractHttpMessageConverter<Pro
 }
 ```
 
-If your application for example allows HTTP Basic authentication, you can to add the filter including the custom entry point to your spring-security configuration like so:
+If your application allows HTTP Basic authentication, you can to add the filter including the custom entry point to your spring-security configuration like so:
 
 ```java
 @Configuration
