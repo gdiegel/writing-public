@@ -133,7 +133,7 @@ class MySpec : KionSpec() {
 }
 ```
 
-Test functions have to be annotated with the `@Kion` annotation to be considered test by the test engine. Compare that to JUnit's `@Test` annotation, which serves a similar purpose. Both tests use the `spec` function, pass in a short description and use lambdas containing assertion statements to [instantiate][6] the function type. In this case we have two test functions, one passing and one failing
+Test functions have to be annotated with the `@Kion` annotation to be considered test by the test engine. Compare that to JUnit's `@Test` annotation, which serves a similar purpose. Both tests use the `spec` function, pass in a short description and use lambdas containing assertion statements to [instantiate][6] the function type. In this case we have two test functions, one passing and one failing.
 
 ### Using the platform launcher to execute the tests
 
